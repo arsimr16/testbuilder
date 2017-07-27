@@ -17,5 +17,9 @@ var detectNetwork = function(cardNumber) {
   	return 'Diner\'s Club';
   } else if (/^3[47]\d{13}$/.test(cardNumber)) {
   	return 'American Express';
+  } else if (/^4\d{12}(?:\d{3})?(?:\d{3})?$/.test(cardNumber)) {
+  	return 'Visa';
+  } else if (/^5[1-5]\d{14}$/.test(cardNumber)) {
+  	return ('MasterCard');
   }
 };
