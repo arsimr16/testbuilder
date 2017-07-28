@@ -43,12 +43,31 @@ describe('Introduction to Mocha Tests - READ ME FIRST', function() {
   });
 });
 */
+
+function getAllCombos(prefixes, lengths) {
+  var allCombos = [];
+  prefixes.forEach(function(prefix) {
+    lengths.forEach(function(length) {
+      var newCombo = prefix;
+      while (newCombo.length < length) {
+        newCombo += '1';
+      }
+      allCombos.push(newCombo);
+    });
+  });
+  return allCombos;
+}
+
 describe('Diner\'s Club', function() {
   // Be careful, tests can have bugs too...
+  var assert = function(isTrue) {
+    if(!isTrue) {
+      throw new Error('Test failed');
+    }
+  };
 
   it('has a prefix of 38 and a length of 14', function() {
     //throw new Error('Delete me!');
- 
     if (detectNetwork('38345678901234') !== 'Diner\'s Club') {
       throw new Error('Test failed');
     }
@@ -58,8 +77,15 @@ describe('Diner\'s Club', function() {
     if (detectNetwork('39345678901234') !== 'Diner\'s Club') {
       throw new Error('Test failed');
     }
- 
   });
+  
+  it('has a prefix of 38 or 39 and a length of 14', function() {
+    var allCombos = getAllCombos(['38', '39'], ['14']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'Diner\'s Club');
+    });
+  });
+  
 });
 
 describe('American Express', function() {
@@ -78,6 +104,13 @@ describe('American Express', function() {
 
   it('has a prefix of 37 and a length of 15', function() {
     assert(detectNetwork('373456789012345') === 'American Express');
+  });
+
+  it('has a prefix of 34 or 37 and a length of 15', function() {
+    var allCombos = getAllCombos(['34', '37'], ['15']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'American Express');
+    });
   });
 });
 
@@ -100,6 +133,13 @@ describe('Visa', function() {
   it('has a prefix of 4 and a length of 19', function() {
     assert(detectNetwork('4123456789012345678') === 'Visa');
   });
+
+  it('has a prefix of 4 and a length of 13, 16, or 19', function() {
+    var allCombos = getAllCombos(['4'], ['13', '16', '19']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'Visa');
+    });
+  });
 });
 
 describe('MasterCard', function() {
@@ -108,6 +148,7 @@ describe('MasterCard', function() {
   // If you want to know more, check out the documentation. 
   //   http://chaijs.com/api/bdd/
   var expect = chai.expect;
+  var assert = chai.assert;
  
   it('has a prefix of 51 and a length of 16', function() {
     expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
@@ -138,13 +179,20 @@ describe('MasterCard', function() {
   it('has a prefix of 55 and a length of 16', function() {
     expect(detectNetwork('5512345678901234')).to.equal('MasterCard');
   });
- 
+
+  it('has a prefix of 51-55 and a length of 16', function() {
+    var allCombos = getAllCombos(['51', '52', '53', '54', '55'], ['16']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'MasterCard');
+    });
+  });
 });
 
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
   var expect = chai.expect;
+  var assert = chai.assert;
 
   it('has a prefix of 6011 and a length of 16', function() {
     expect(detectNetwork('6011567890123456')).to.equal('Discover');
@@ -173,12 +221,20 @@ describe('Discover', function() {
   it('has a prefix of 65 and a length of 19', function() {
     expect(detectNetwork('6534567890123456789')).to.equal('Discover');
   });
+
+  it('has a prefix of 6011, 644-649, or 65 and a length of 16 or 19', function() {
+    var allCombos = getAllCombos(['6011', '644', '645', '646', '647', '648', '649', '65'], ['16', '19']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'Discover');
+    });
+  });
 });
 
 describe('Maestro', function() {
   // Write full test coverage for the Maestro card
   var expect = chai.expect;
-
+  var assert = chai.assert;
+/*
   for (var length = 12; length <= 19; length++) {
     length = length.toString();
     var remainingDigits;
@@ -217,6 +273,13 @@ describe('Maestro', function() {
       });
     })(length)
   }
+*/
+  it('has a prefix of 5018, 5020, 5036, or 6304 and a length of 12-19', function() {
+    var allCombos = getAllCombos(['5018', '5020', '5038', '6304'], ['12', '13', '14', '15', '16', '17', '18', '19']);
+    allCombos.forEach(function(combo) {
+      assert(detectNetwork(combo) === 'Maestro');
+    });
+  });
 });
 
 describe('should support China UnionPay')
