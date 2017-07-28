@@ -1,4 +1,5 @@
-function getAllCombos(prefixes, lengths) {
+function getAllCombos(network, prefixes, lengths) {
+  var assert = chai.assert;
   var allCombos = [];
   prefixes.forEach(function(prefix) {
     lengths.forEach(function(length) {
@@ -9,73 +10,44 @@ function getAllCombos(prefixes, lengths) {
       allCombos.push(newCombo);
     });
   });
-  return allCombos;
+  allCombos.forEach(function(combo) {
+    assert(detectNetwork(combo) === network);
+  });
 }
 
 describe('Diner\'s Club', function() {
-  var assert = chai.assert;
-  
   it('has a prefix of 38 or 39 and a length of 14', function() {
-    var allCombos = getAllCombos(['38', '39'], ['14']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'Diner\'s Club');
-    });
+    getAllCombos('Diner\'s Club', ['38', '39'], ['14']);
   });
-  
 });
 
 describe('American Express', function() {
-  var assert = chai.assert;
-
-  it('has a prefix of 34 or 37 and a length of 15', function() {
-    var allCombos = getAllCombos(['34', '37'], ['15']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'American Express');
-    });
+  it('has a prefix of 34 or 37 and a length of 14', function() {
+    getAllCombos('American Express', ['34', '37'], ['15']);
   });
 });
 
 describe('Visa', function() {
-  var assert = chai.assert;
-
-  it('has a prefix of 4 and a length of 13, 16, or 19', function() {
-    var allCombos = getAllCombos(['4'], ['13', '16', '19']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'Visa');
-    });
+  it('as a prefix of 4 and a length of 13, 16, or 19', function() {
+    getAllCombos('Visa', ['4'], ['13', '16', '19']);
   });
 });
 
 describe('MasterCard', function() {
-  var assert = chai.assert;
-
   it('has a prefix of 51-55 and a length of 16', function() {
-    var allCombos = getAllCombos(['51', '52', '53', '54', '55'], ['16']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'MasterCard');
-    });
+    getAllCombos('MasterCard', ['51', '52', '53', '54', '55'], ['16'])
   });
 });
 
 describe('Discover', function() {
-  var assert = chai.assert;
-
   it('has a prefix of 6011, 644-649, or 65 and a length of 16 or 19', function() {
-    var allCombos = getAllCombos(['6011', '644', '645', '646', '647', '648', '649', '65'], ['16', '19']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'Discover');
-    });
+    getAllCombos('Discover', ['6011', '644', '645', '646', '647', '648', '649', '65'], ['16', '19']);
   });
 });
 
 describe('Maestro', function() {
-  var assert = chai.assert;
-
   it('has a prefix of 5018, 5020, 5038, or 6304 and a length of 12-19', function() {
-    var allCombos = getAllCombos(['5018', '5020', '5038', '6304'], ['12', '13', '14', '15', '16', '17', '18', '19']);
-    allCombos.forEach(function(combo) {
-      assert(detectNetwork(combo) === 'Maestro');
-    });
+    getAllCombos('Maestro', ['5018', '5020', '5038', '6304'], ['12', '13', '14', '15', '16', '17', '18', '19'])
   });
 });
 
