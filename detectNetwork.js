@@ -15,11 +15,20 @@ var detectNetwork = function(cardNumber) {
   // Once you've read this, go ahead and try to implement this function, then return to the console.
   if (/^3[89]\d{12}$/.test(cardNumber)) {
   	return 'Diner\'s Club';
+
   } else if (/^3[47]\d{13}$/.test(cardNumber)) {
   	return 'American Express';
+
   } else if (/^4\d{12}(?:\d{3})?(?:\d{3})?$/.test(cardNumber)) {
   	return 'Visa';
+
   } else if (/^5[1-5]\d{14}$/.test(cardNumber)) {
   	return ('MasterCard');
+
+  } else if (/^6(?:011|4[4-9]\d|5\d{2})\d{12}(?:\d{3})?$/.test(cardNumber)) {
+  	return 'Discover';
+
+  } else if (/^(?:50(?:18|20|38)|6304)\d{8}\d?\d?\d?\d?\d?\d?\d?$/.test(cardNumber)) {
+  	return 'Maestro';
   }
 };
