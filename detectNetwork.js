@@ -19,9 +19,6 @@ var detectNetwork = function(cardNumber) {
   } else if (/^3[47]\d{13}$/.test(cardNumber)) {
   	return 'American Express';
 
-  } else if (/^4\d{12}(?:\d{3})?(?:\d{3})?$/.test(cardNumber)) {
-  	return 'Visa';
-
   } else if (/^5[1-5]\d{14}$/.test(cardNumber)) {
   	return ('MasterCard');
 
@@ -37,6 +34,9 @@ var detectNetwork = function(cardNumber) {
   } else if (/^(?:49(?:03|05|11|36)\d{2}|564182|633(?:110|3\d{2})|6759\d{2})\d{10}(?:\d{2}\d?)?$/.test(cardNumber)) {
   	return 'Switch';
 
+  } else if (/^4\d{12}(?:\d{3})?(?:\d{3})?$/.test(cardNumber)) {
+  	return 'Visa';
+  	
   }
 };
 
