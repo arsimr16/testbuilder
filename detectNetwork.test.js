@@ -1,3 +1,20 @@
+function getAllNumsInRange(nums) {
+  var result = [];
+  nums.forEach(function(num) {
+    if (num.includes('-')) {
+      num = num.split('-');
+      var start = Number(num[0]);
+      var end = Number(num[1]);
+      for (var i = start; i <= end; i++) {
+        result.push(i.toString());
+      }
+    } else {
+      result.push(num);
+    }
+  });
+  return result;
+}
+
 function getAllCombos(network, prefixes, lengths) {
   var assert = chai.assert;
   var allCombos = [];
