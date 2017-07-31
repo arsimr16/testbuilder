@@ -31,10 +31,10 @@ var detectNetwork = function(cardNumber) {
   } else if (/^(?:50(?:18|20|38)|6304)\d{8}\d?\d?\d?\d?\d?\d?\d?$/.test(cardNumber)) {
   	return 'Maestro';
 
-  } else if (/^62(?:2(12[6-9]|1[3-9][\d]|2[0-8]\d|29[0-5])|[4-6]\d{3}|8[2-8]\d{2})\d{10}\d?\d?\d?$/.test(cardNumber)) {
+  } else if (/^62(?:2(12[6-9]|1[3-9][\d]|[2-8]\d{2}|92[0-5])|[4-6]\d{3}|8[2-8]\d{2})\d{10}\d?\d?\d?$/.test(cardNumber)) {
   	return 'China UnionPay';
 
-  } else if (/^(?:49(?:03|05|11|36)\d{2}|564182|633(?:110|3\d{2})|6759\d{2})\d{10}(?:\d{2}\d?)$/.test(cardNumber)) {
+  } else if (/^(?:49(?:03|05|11|36)\d{2}|564182|633(?:110|3\d{2})|6759\d{2})\d{10}(?:\d{2}\d?)?$/.test(cardNumber)) {
   	return 'Switch';
 
   }
